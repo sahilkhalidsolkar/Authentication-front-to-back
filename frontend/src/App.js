@@ -6,11 +6,15 @@ import Register from './components/Register';
 import AuthContext from './context/auth/AuthContext'
 import axios from './axios'
 import setAuthHeader from './utils/setAuthHeader';
+import PrivateRoute from './components/PrivateRoute'
+import Home from './components/Home';
 function App() {
   const { token, loadUser } = useContext(AuthContext);
 
   useEffect(() => {
-    loadUser(token)
+    if (token) {
+      loadUser(token)
+    }
 
   }, [token]);
 
@@ -22,6 +26,7 @@ function App() {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <PrivateRoute path="/home" component={Home} />
 
 
         </Switch>

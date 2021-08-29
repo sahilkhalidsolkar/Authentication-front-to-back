@@ -64,8 +64,8 @@ const AuthState = props => {
             console.log(responseData)
             if (responseData.data.error) {
                 console.log(responseData.data.error)
-                unRegister()
                 localStorage.removeItem('token')
+                unRegister()
                 return
             }
             // otherwise save it to localstorage and state
@@ -76,6 +76,7 @@ const AuthState = props => {
                 payload: responseData.data.token
             })
         } catch (error) {
+            unRegister()
             console.log(error)
 
         }
@@ -91,6 +92,8 @@ const AuthState = props => {
             const responseData = await axios.get('/auth')
             if (responseData.data.error) {
                 console.log(responseData.data.error)
+                localStorage.removeItem('token')
+                unRegister()
                 return
             }
             dispatch({
@@ -101,6 +104,8 @@ const AuthState = props => {
 
         } catch (error) {
             console.log(error)
+            localStorage.removeItem('token')
+            unRegister()
         }
 
     }

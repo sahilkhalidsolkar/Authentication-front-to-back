@@ -8,7 +8,7 @@ export default (state, action) => {
             return { ...state, token: action.payload }
         case UNREGISTER_USER:
         case LOGOUT_USER:
-            return { ...state, token: null }
+            return { ...state, token: null, userDetails: null }
         case LOAD_USER:
             return { ...state, userDetails: action.payload }
 

@@ -5,7 +5,7 @@ import AuthState from './context/auth/AuthState'
 ReactDOM.render(
   <React.StrictMode>
     <AuthState>
-      <App />
+      <App data='hello' />
     </AuthState>
   </React.StrictMode>,
   document.getElementById('root')
