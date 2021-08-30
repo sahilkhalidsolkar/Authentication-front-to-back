@@ -9,18 +9,18 @@ const router = express.Router()
 // @desc to register user to database
 // @access public
 router.post('/', [
-    check('name', 'Please enter your name').trim().not().isEmpty(),
-    check('email', 'Please enter valid email').trim().not().isEmpty().isEmail(),
-    check('password', 'Please enter minimum 6 characters').trim().not().isEmpty().isLength({ min: 6 }),
-    check('phone', 'Please enter your phone no').trim().not().isEmpty(),
-    check('country', 'Please enter a valid country name').trim().not().isEmpty()
+    check('name', 'Please enter your name').trim().bail().not().bail().isEmpty(),
+    check('email', 'Please enter valid email').trim().bail().not().bail().isEmpty().bail().isEmail(),
+    check('password', 'Please enter minimum 6 characters').trim().bail().not().bail().isEmpty().bail().isLength({ min: 6 }),
+    check('phone', 'Please enter your phone no').trim().bail().not().bail().isEmpty(),
+    check('country', 'Please enter a valid country name').trim().bail().not().bail().isEmpty()
 
 
 ], async (req, res) => {
 
     const errors = validationResult(req)
     if (errors.array().length > 0) {
-        return res.json({ errors: errors.array() }).status(406)
+        return res.status(406).json({ errors: errors.array() })
     } else {
         try {
             const { name, email, password, phone, country } = req.body
@@ -46,10 +46,10 @@ router.post('/', [
                 return res.json({ token })
 
             } else {
-                return res.json({ error: "User already exists" }).status(406)
+                return res.status(406).json({ error: "User already exists" })
             }
         } catch (error) {
-            return res.json({ error: "User already exists" }).status(406)
+            return res.status(406).json({ error: "User already exists" })
         }
 
     }

@@ -9,7 +9,7 @@ import setAuthHeader from './utils/setAuthHeader';
 import PrivateRoute from './components/PrivateRoute'
 import Home from './components/Home';
 function App() {
-  const { token, loadUser } = useContext(AuthContext);
+  const { token, loadUser, errors, removeAllError } = useContext(AuthContext);
 
   useEffect(() => {
     if (token) {
@@ -17,6 +17,8 @@ function App() {
     }
 
   }, [token]);
+
+
 
 
 

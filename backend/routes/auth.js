@@ -11,8 +11,8 @@ const router = express.Router()
 // @type post
 // @access public
 router.post('/', [
-    check('email', 'Please enter valid email').trim().not().isEmpty().isEmail(),
-    check('password', 'Please enter minimum 6 characters').trim().not().isEmpty().isLength({ min: 6 }),
+    check('email', 'Please enter valid email').trim().bail().not().bail().isEmpty().bail().isEmail(),
+    check('password', 'Please enter minimum 6 characters').trim().bail().not().bail().isEmpty().bail().isLength({ min: 6 }),
 ], async (req, res) => {
     const errors = validationResult(req)
     if (errors.array().length > 0) {
@@ -22,11 +22,11 @@ router.post('/', [
             const { email, password } = req.body
             const user = await User.findOne({ email })
             if (!user) {
-                return res.json({ error: "Invalid credentials" })
+                return res.status(400).json({ error: "Invalid credentials" })
             }
             const passwordCheck = bcrypt.compareSync(password, user.password);
             if (!passwordCheck) {
-                return res.json({ error: "Invalid credentials" })
+                return res.status(400).json({ error: "Invalid credentials" })
             }
             const payload = {
                 user: {

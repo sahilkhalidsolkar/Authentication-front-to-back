@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import AuthContext from '../context/auth/AuthContext';
+import { Link } from 'react-router-dom'
 
 function Register() {
 
@@ -27,39 +28,39 @@ function Register() {
                     value={name}
                     placeholder='Name'
                     onChange={e => setName(e.target.value)}
-                    required
+                // required
                 />
                 <input
                     type='text'
                     value={email}
                     placeholder='Email'
                     onChange={e => setEmail(e.target.value)}
-                    required
+                // required
                 />
                 <input
                     type='text'
                     value={password}
                     placeholder='Password'
                     onChange={e => setPassword(e.target.value)}
-                    required
+                // required
                 />
                 <input
                     type='text'
                     value={phone}
                     placeholder='Phone'
                     onChange={e => setPhone(e.target.value)}
-                    required
+                // required
                 />
                 <input
                     type='text'
                     value={country}
                     placeholder='Country'
                     onChange={e => setCountry(e.target.value)}
-                    required
+                // required
                 />
                 <input type="submit" value="Register" />
             </form>
-
+            <Link to='/login'>login</Link>
         </div>
     )
 }
